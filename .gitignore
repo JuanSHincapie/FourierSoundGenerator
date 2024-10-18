@@ -1,0 +1,15 @@
+# Ignorar el archivo .env
+.env
+
+# Ignorar archivos de compilación de Python
+__pycache__/
+*.py[cod]
+
+# Ignorar entornos virtuales
+venv/
+env/
+.env/
+
+# Ignorar otros archivos comunes
+*.egg-info/
+.DS_Store
