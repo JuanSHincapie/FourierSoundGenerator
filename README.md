@@ -1,3 +1,4 @@
+# Proyecto
 ## Entorno virtual
 Para le creación del entorno usaremos python -m venv env.
 
@@ -29,3 +30,21 @@ Una vez levantado el entorno, necesitaremos usar python src/main.py
 - La relación entre la estructura armónica y la percepción musical.
 - Cómo percibimos el sonido y la relación entre la frecuencia y la percepción tonal.
 - Cómo los principios matemáticos se aplican en la composición musical.
+
+## Código
+- Modelo Karplus-Strong (Algoritmo)
+
+# Cifrado americano
+Para el cifrado americano se usa lo siguiente:
+- Do = C
+- Re = D
+- Mi = E
+- Fa = F
+- Sol = G
+- La = A
+- Si = B
+
+## Ejemplo
+
+Para un ejemplo general podemos definir "Musica ligera - Soda estero" con las siguientes notas en 4/4:
+- B G D A
