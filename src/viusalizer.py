@@ -12,7 +12,6 @@ def plot_time_domain(signal, sample_rate):
     plt.plot(t, signal)   
     plt.xlabel('Tiempo [s]')
     plt.ylabel('Amplitud')
-    plt.title('Signal in Time Domain')
     plt.grid()
     plt.xlim(0, 0.05)
     plt.ylim(-3, 3)

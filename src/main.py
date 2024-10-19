@@ -10,21 +10,23 @@ def get_frequencies(chord_name):
 def main():
     sample_rate = 48000  
     bpm = 120 
-    note_duration = 60 / bpm  
+    base_note_duration = 60 / bpm  
     
     chords_with_repetitions = [
-        ('Dm', 2),  
-        ('Bb/D', 2),  
-        ('C', 2),  
-        ('G', 1),   
-        ('A', 1),   
+        ('Bm', 2),  
+        ('G', 2),  
+        ('A', 1),  
+        ('D', 2),   
+        ('G', 2),   
     ]  
-    chords_freqs = []
+    chords_freqs = []    
+
     for chord, repetitions in chords_with_repetitions:
         chord_freqs = get_frequencies(chord)
         chords_freqs.extend([chord_freqs] * repetitions)
+       
    
-    signal, _ = generate_riff(chords_freqs, sample_rate, note_duration)
+    signal, _ = generate_riff(chords_freqs, sample_rate, base_note_duration)
    
     plot_time_domain(signal, sample_rate) 
     plot_frequency_domain(signal, sample_rate)   
