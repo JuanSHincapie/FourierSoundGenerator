@@ -17,18 +17,39 @@ def karplus_strong(freq, sample_rate, duration):
 
     return signal
 
+def apply_adsr(signal, sample_rate, attack=0.01, decay=0.1, sustain=0.7, release=0.1):
+    
+    n_samples = len(signal)
+    t = np.linspace(0, n_samples / sample_rate, n_samples)
+
+    attack_samples = int(attack * sample_rate)
+    decay_samples = int(decay * sample_rate)
+    release_samples = int(release * sample_rate)
+    sustain_samples = n_samples - (attack_samples + decay_samples + release_samples)
+
+    env = np.concatenate([
+        np.linspace(0, 1, attack_samples),               # Attack
+        np.linspace(1, sustain, decay_samples),           # Decay
+        np.full(sustain_samples, sustain),                 # Sustain
+        np.linspace(sustain, 0, release_samples)          # Release
+    ])
+
+    return signal * env[:n_samples]
+
 def generate_riff(chord_freqs_list, sample_rate, note_duration):
     signal = np.array([])
 
     for chord_freqs in chord_freqs_list:
         chord_signal = np.zeros(int(sample_rate * note_duration))
-      
+        
         for freq in chord_freqs:
             note_signal = karplus_strong(freq, sample_rate, note_duration)
+            note_signal = apply_adsr(note_signal, sample_rate)  # Aplicar ADSR a cada nota
             chord_signal += note_signal
-       
+        
+        
         chord_signal /= np.max(np.abs(chord_signal) + 1e-7)
-      
+       
         signal = np.concatenate((signal, chord_signal))
     
     return signal, sample_rate

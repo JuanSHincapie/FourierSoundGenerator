@@ -4,29 +4,30 @@ from sound_generator import generate_riff
 from notes import chords_dict, notes_dict
 
 
-def get_frecuencies(chord_name):
+def get_frequencies(chord_name):
     return [notes_dict[note] for note in chords_dict[chord_name]]
-
+    
 def main():
     sample_rate = 48000  
-
-    frequencies_Dm = get_frecuencies('Dm')  
-    frequencies_Bb = get_frecuencies('Bb')  
-    frequencies_C = get_frecuencies('C')   
-    frecuencies_BbD = get_frecuencies('Bb/D')
-    frecuencies_CD = get_frecuencies('C/D')
-
-
-    chords_freqs = [frequencies_Dm, frecuencies_BbD, frequencies_Dm, frecuencies_BbD, frequencies_Dm, frecuencies_BbD, frecuencies_CD] #Lose yourself - Eminem standar - Guitar
-
-    duration = 0.42
-    signal, _ = generate_riff(chords_freqs, sample_rate, duration)
-
-    plot_time_domain(signal, sample_rate)
-    plot_frequency_domain(signal, sample_rate)
-    create_signal([f for chord in chords_freqs for f in chord], sample_rate, duration)
-
-    print("Acá inicia el sample")
+    bpm = 120 
+    note_duration = 60 / bpm  
+    
+    chords_with_repetitions = [
+        ('Dm', 2),  
+        ('Bb/D', 2),  
+        ('C', 2),  
+        ('G', 1),   
+        ('A', 1),   
+    ]  
+    chords_freqs = []
+    for chord, repetitions in chords_with_repetitions:
+        chord_freqs = get_frequencies(chord)
+        chords_freqs.extend([chord_freqs] * repetitions)
+   
+    signal, _ = generate_riff(chords_freqs, sample_rate, note_duration)
+   
+    plot_time_domain(signal, sample_rate) 
+    plot_frequency_domain(signal, sample_rate)   
     play_sound(signal, sample_rate, device_index=11)
 
 
