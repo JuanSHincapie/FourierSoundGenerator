@@ -10,14 +10,17 @@ def get_frequencies(chord_name):
 def main():
     sample_rate = 48000  
     bpm = 120 
-    base_note_duration = 60 / bpm  
+    base_note_duration = (60 / bpm )/2 
     
     chords_with_repetitions = [
-        ('Bm', 2),  
-        ('G', 2),  
-        ('A', 1),  
-        ('D', 2),   
-        ('G', 2),   
+    ('Am', 2),  
+    ('Dm', 2),  
+    ('Am', 2),  
+    ('E7', 2), 
+    ('Am', 2),  
+    ('G', 2),   
+    ('F', 2),   
+    ('E', 2),   
     ]  
     chords_freqs = []    
 

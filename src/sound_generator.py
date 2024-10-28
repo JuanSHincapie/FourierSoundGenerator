@@ -12,7 +12,7 @@ def karplus_strong(freq, sample_rate, duration):
    
     for i in range(n_samples):
         signal[i] = buffer[i % buffer_size]
-        avg = 0.5 * (buffer[i % buffer_size] + buffer[(i + 1) % buffer_size])
+        avg = 0.5 * (buffer[i % buffer_size] + buffer[(i + 1) % buffer_size]) # complejidad : n
         buffer[i % buffer_size] = avg * 0.995 
 
     return signal
@@ -25,7 +25,7 @@ def apply_adsr(signal, sample_rate, attack=0.01, decay=0.1, sustain=0.7, release
     attack_samples = int(attack * sample_rate)
     decay_samples = int(decay * sample_rate)
     release_samples = int(release * sample_rate)
-    sustain_samples = n_samples - (attack_samples + decay_samples + release_samples)
+    sustain_samples = n_samples - (attack_samples + decay_samples + release_samples)  #complejidad O(1)
 
     env = np.concatenate([
         np.linspace(0, 1, attack_samples),               # Attack
@@ -44,7 +44,7 @@ def generate_riff(chord_freqs_list, sample_rate, note_duration):
         
         for freq in chord_freqs:
             note_signal = karplus_strong(freq, sample_rate, note_duration)
-            note_signal = apply_adsr(note_signal, sample_rate)  # Aplicar ADSR a cada nota
+            note_signal = apply_adsr(note_signal, sample_rate)  # Complejidad: n^2
             chord_signal += note_signal
         
         
